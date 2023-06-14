@@ -1,0 +1,38 @@
+Notes for Pthread
+
+g++ -lpthread <filename>, -lpthread flag for compiler to link pthread libaray, potential linkage error if not included
+
+key:  process flow can be scheduled to run on another processor thus gaining speed through parallel or distributed processing
+
+Thread operations include thread creation, termination, synchronization (joins,blocking), scheduling, data management and process interaction.
+A thread does not maintain a list of created threads, nor does it know the thread that created it.
+All threads within a process share the same address space.
+Threads in the same process share:
+    Process instructions
+    Most data
+    open files (descriptors)
+    signals and signal handlers
+    current working directory
+    User and group id
+Each thread has a unique:
+    Thread ID
+    set of registers, stack pointer
+    stack for local variables, return addresses
+    signal mask
+    priority
+    Return value: errno
+pthread functions return "0" if OK.
+
+Some important functions/calls for pthread program:
+    1.  pthread_t <thread> //create pthread_t varaible, serve as thread identifier
+    2.  int pthread_create(pthread_t * thread, 
+                       const pthread_attr_t * attr,
+                       void * (*start_routine)(void *), //pointer to the function to be threaded
+                       void *arg); //pointer to argument of the function, send pointer to structure to pass multiple argument
+        ex. int i = pthread_create( &thread1, NULL, print_message_function, (void*) message1);
+    3.  int pthread_join(pthread_t thread, void **value_ptr);
+        ex. pthread_join( thread1, NULL);
+    4.  void pthread_exit(void *retval);
+        ex.pthread_exit(NULL)
+
+
