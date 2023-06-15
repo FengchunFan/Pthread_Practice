@@ -7,6 +7,7 @@
 * LAST REVISED: 08/09/11
 * OBSERVATION: 5 threads created in order 0 - 4, but the order of thread appearance is random
 *              using (long) for threadid type to match void pointer size, int works but will give warning
+*              able to change file from pthread_exit to pthread_join with same behavior
 ******************************************************************************/
 #include <pthread.h>
 #include <stdio.h>
@@ -22,7 +23,8 @@ void *PrintHello(void *threadid)
    //tid = (int)(intptr_t)threadid;
    printf("Hello World! It's me, thread #%ld!\n", tid);
    //printf("Hello World! It's me, thread #%d!\n", tid);
-   pthread_exit(NULL);
+   //pthread_exit(NULL);
+   return NULL;
 }
 
 int main(int argc, char *argv[])
@@ -39,8 +41,11 @@ int main(int argc, char *argv[])
        printf("ERROR; return code from pthread_create() is %d\n", rc);
        exit(-1);
        }
-     }
+   }
+   for(t=0;t<NUM_THREADS;t++){
+    pthread_join(threads[t], NULL);
+   }
 
    /* Last thing that main() should do */
-   pthread_exit(NULL);
+   //pthread_exit(NULL);
 }

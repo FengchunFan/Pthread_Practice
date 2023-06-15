@@ -24,15 +24,20 @@ Each thread has a unique:
 pthread functions return "0" if OK.
 
 Some important functions/calls for pthread program:
+    0.  #include <stdio.h> 
+        #include <stdlib.h>
+        #include <pthread.h>
+        g++ -lpthread <filename>
     1.  pthread_t <thread> //create pthread_t varaible, serve as thread identifier
-    2.  int pthread_create(pthread_t * thread, 
-                       const pthread_attr_t * attr,
+    2.  int pthread_create(pthread_t * thread, //pointer to the pthread_t variable, add & to pass by reference
+                       const pthread_attr_t * attr, //NULL for default attribute
                        void * (*start_routine)(void *), //pointer to the function to be threaded
                        void *arg); //pointer to argument of the function, send pointer to structure to pass multiple argument
+                                   //can directly send arg (ex. (void*) a) or arg pointer (ex. (void*) &a)
         ex. int i = pthread_create( &thread1, NULL, print_message_function, (void*) message1);
-    3.  int pthread_join(pthread_t thread, void **value_ptr);
-        ex. pthread_join( thread1, NULL);
+    3.  int pthread_join(pthread_t thread, void **value_ptr); //execute PAUSE until thread is done
+        ex. pthread_join( thread1, &result1); //second argument could be the return value from the function
     4.  void pthread_exit(void *retval);
-        ex.pthread_exit(NULL)
+        ex.pthread_exit(NULL) //equivalent to return 0
 
 
