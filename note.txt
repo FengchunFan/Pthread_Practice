@@ -23,6 +23,10 @@ Each thread has a unique:
     Return value: errno
 pthread functions return "0" if OK.
 
+Thread's pthread_create() is cheaper to create and easier to manage compare to process's fork() subroutine
+
+Pthread API: https://hpc-tutorials.llnl.gov/posix/pthreads_api/
+
 Some important functions/calls for pthread program:
     0.  #include <stdio.h> 
         #include <stdlib.h>
@@ -33,11 +37,16 @@ Some important functions/calls for pthread program:
                        const pthread_attr_t * attr, //NULL for default attribute
                        void * (*start_routine)(void *), //pointer to the function to be threaded
                        void *arg); //pointer to argument of the function, send pointer to structure to pass multiple argument
-                                   //can directly send arg (ex. (void*) a) or arg pointer (ex. (void*) &a)
+                                   //can directly send arg (ex. (void*) a) or arg pointer (ex. (void*) &a) (in function use type* to extract)
         ex. int i = pthread_create( &thread1, NULL, print_message_function, (void*) message1);
     3.  int pthread_join(pthread_t thread, void **value_ptr); //execute PAUSE until thread is done
         ex. pthread_join( thread1, &result1); //second argument could be the return value from the function
-    4.  void pthread_exit(void *retval);
+    4.  void pthread_exit(void *retval); //anything after pthread_exit() will not be executed
+                                         //By having main() explicitly call pthread_exit() as the last thing it does,
+                                         //main() will block and be kept alive to support the threads it created until they are done.
         ex.pthread_exit(NULL) //equivalent to return 0
+    5.  pthread_attr_init(attr) //used to initialize the thread attribute object
+    6.  pthread_attr_destroy(attr) //used to destroy the thread attribute object
+    7.  pthread_cancel(thread) //cancel another thread from thread
 
 
