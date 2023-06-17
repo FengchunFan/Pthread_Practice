@@ -13,6 +13,7 @@
 #include <pthread.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <unistd.h>
 #define NTHREADS	8
 #define ARRAY_SIZE      500000
 #define MEGEXTRA        1000000

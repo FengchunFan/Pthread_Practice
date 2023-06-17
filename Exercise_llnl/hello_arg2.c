@@ -6,10 +6,14 @@
 *   a structure is used to pass multiple arguments.
 * AUTHOR: Blaise Barney
 * LAST REVISED: 01/29/09
+* OBSERVATION: similar to hello_arg1.c, where 8 + 8 messages will be printed
+               only difference is this time we need to pass multiple argument
+               in order to do that, we need to create a separate structure and pass in the structure pointer
 ******************************************************************************/
 #include <pthread.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <unistd.h>
 #define NUM_THREADS	8
 
 char *messages[NUM_THREADS];

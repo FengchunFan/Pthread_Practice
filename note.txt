@@ -25,6 +25,16 @@ pthread functions return "0" if OK.
 
 Thread's pthread_create() is cheaper to create and easier to manage compare to process's fork() subroutine
 
+join vs detached states:
+most pthread_create have joinable as default states
+we can set threads as detached state if they do not require to be joined, this may free some spaces
+
+Mutex:
+Act like a lock protecting access to shared data resource.
+Mutex is Pthread sets that only one thread can own a mutex variable at one time.
+No other thread can own the mutex variable until the previous owner release it.
+Often used to update global variable (critical section) and prevent race condition.
+
 Pthread API: https://hpc-tutorials.llnl.gov/posix/pthreads_api/
 
 Some important functions/calls for pthread program:
@@ -46,7 +56,10 @@ Some important functions/calls for pthread program:
                                          //main() will block and be kept alive to support the threads it created until they are done.
         ex.pthread_exit(NULL) //equivalent to return 0
     5.  pthread_attr_init(attr) //used to initialize the thread attribute object
+        ex.pthread_attr_init(&attr);
+        ex.pthread_attr_setdetachstate(&attr, PTHREAD_CREATE_JOINABLE);
     6.  pthread_attr_destroy(attr) //used to destroy the thread attribute object
+        ex.pthread_destroy(&attr);
     7.  pthread_cancel(thread) //cancel another thread from thread
 
 

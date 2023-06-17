@@ -7,10 +7,13 @@
 *   also shown. Compare to detached.c
 * AUTHOR: 8/98 Blaise Barney
 * LAST REVISED:  01/30/09
+* OBSERVATION: threads will run and send back the return code same as their tid
+               to send back a different return code, we just need to change their tid
 ******************************************************************************/
 #include <pthread.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <math.h>
 #define NUM_THREADS	4
 
 void *BusyWork(void *t)
@@ -25,7 +28,8 @@ void *BusyWork(void *t)
       result = result + sin(i) * tan(i);
    }
    printf("Thread %ld done. Result = %e\n",tid, result);
-   pthread_exit((void*) t);
+   tid = tid + 10;
+   pthread_exit((void*) tid);
 }
 
 int main (int argc, char *argv[])

@@ -5,10 +5,13 @@
 *   then fix it - or else see the solution bug2fix.c.
 * AUTHOR: 9/98 Blaise Barney
 * LAST REVISED: 01/29/09
+* OBSERVATION: fix in bug2fix.c
+               need to explicitly set stack size to prevent core dump
 ******************************************************************************/
 #include <pthread.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <unistd.h>
 #define NTHREADS	8
 #define ARRAY_SIZE      500000
 

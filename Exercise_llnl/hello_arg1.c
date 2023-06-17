@@ -5,10 +5,16 @@
 *   to pass arguments to threads during thread creation.
 * AUTHOR: Blaise Barney
 * LAST REVISED: 08/04/15
+* OBSERVATION: 8 threads are created at the same time
+               only one argument is passed in the create function
+               with the sleep() function, we can see creating message on top and thread message on bottom
+               without the sleep() function, messages are mixed
+               order of creating message is ordered and thread message is unordered
 ******************************************************************************/
 #include <pthread.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <unistd.h>
 #define NUM_THREADS	8
 
 char *messages[NUM_THREADS];
@@ -17,7 +23,7 @@ void *PrintHello(void *threadid)
 {
    long taskid;
 
-   sleep(1);
+   //sleep(1);
    taskid = (long) threadid;
    printf("Thread %d: %s\n", taskid, messages[taskid]);
    pthread_exit(NULL);

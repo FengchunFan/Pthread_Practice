@@ -5,6 +5,13 @@
 *   work. Figure out why.
 * AUTHOR: 07/06/05 Blaise Barney
 * LAST REVISED: 07/11/12
+* OBSERVATION: Problem: main dies before threads finish
+               one way to fix:
+               add pthread_exit() at the end of main
+               problem is that the main exit function will not be printed
+               another to fix:
+               call pthread_join() function, which will PAUSE and wait till threads finish
+               this is prefered
 ******************************************************************************/
 #include <pthread.h>
 #include <stdio.h>
@@ -36,5 +43,9 @@ for(t=0;t<NUM_THREADS;t++){
     exit(-1);
     }
   }
+for(t=0;t<NUM_THREADS;t++){ //fix2
+  pthread_join(threads[t], NULL);
+}
+//pthread_exit(NULL); //fix1
 printf("Main: Done.\n");
 }

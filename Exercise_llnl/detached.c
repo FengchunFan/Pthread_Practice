@@ -7,10 +7,12 @@
 *   where the threads are created joinable.
 * AUTHOR: 01/30/08 Blaise Barney
 * LAST REVISED: 01/29/09  
+* OBSERVATION: No more join states
 ******************************************************************************/
 #include <pthread.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <math.h>
 #define NUM_THREADS	4
 
 void *BusyWork(void *t)
