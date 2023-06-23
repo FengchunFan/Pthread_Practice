@@ -66,5 +66,20 @@ Some important functions/calls for pthread program:
     6.  pthread_attr_destroy(attr) //used to destroy the thread attribute object
         ex.pthread_destroy(&attr);
     7.  pthread_cancel(thread) //cancel another thread from thread
+    
+    //Mutexes
+    8.  pthread_mutex_t <mutex>; //*important: a mutex object must be decleared globally
+        ex. pthread_mutex_t mutex;
+    9.  pthread_mutex_init (mutex,attr) //initiate mutex, usually in main function
+        ex. pthread_mutex_init (&mutex, NULL)
+    10. pthread_mutex_t mymutex = PTHREAD_MUTEX_INITIALIZER; //another way to initiate mutex
+    11. pthread_mutex_destroy (mutex) //destroy the mutex, usually after join
+        ex. pthread_mutex_destroy (&mutex)
+    12. pthread_mutex_lock (mutex) //acquire lock by thread
+        ex. pthread_mutex_lock (&mutex)
+    13. pthread_mutex_trylock (mutex) //attempt to lock, useful to prevent deadlock
+        ex. pthread_mutex_trylock (&mutex)
+    14. pthread_mutex_unlock (mutex) //release lock by thread
+        pthread_mutex_unlock (&mutex)
 
 
