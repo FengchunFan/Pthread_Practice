@@ -1,6 +1,6 @@
 Notes for Pthread
 
-g++ -lpthread <filename>, -lpthread flag for compiler to link pthread libaray, potential linkage error if not included
+g++ -lpthread <filename>, -pthread flag for compiler to link pthread libaray, potential linkage error if not included
 
 key:  process flow can be scheduled to run on another processor thus gaining speed through parallel or distributed processing
 
@@ -34,6 +34,11 @@ Act like a lock protecting access to shared data resource.
 Mutex is Pthread sets that only one thread can own a mutex variable at one time.
 No other thread can own the mutex variable until the previous owner release it.
 Often used to update global variable (critical section) and prevent race condition.
+
+Condition Variables:
+Another way for threads to synchronize.
+While mutexes implement synchronization by controlling thread access to data, condition variables allow threads to synchronize based upon the actual value of data.
+A condition variable is always used in conjunction with a mutex lock.
 
 Pthread API: https://hpc-tutorials.llnl.gov/posix/pthreads_api/
 
